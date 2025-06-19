@@ -137,16 +137,16 @@ const Dashboard = () => {
               {filteredReviews.length > 0 ? (
                 filteredReviews.map((review) => (
                   <tr key={review._id}>
-                    <td>{review.employeeName || 'N/A'}</td>
+                    <td>{review.employeeName || '-'}</td>
                     {rightsKeys.map(key => (
                       <td key={key}>
-                        {review.menuRights && review.menuRights[key] ? review.menuRights[key] : 'N/A'}
+                        {review.menuRights && review.menuRights[key] ? review.menuRights[key] : '-'}
                       </td>
                     ))}
-                    <td>{review.reviewerRemarks || 'N/A'}</td>
-                    <td>{review.actionTaken ? review.actionTaken.charAt(0).toUpperCase() + review.actionTaken.slice(1) : 'N/A'}</td>
-                    <td>{review.reviewerName || 'N/A'}</td>
-                    <td>{review.submittedAt ? new Date(review.submittedAt).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A'}</td>
+                    <td>{review.reviewerRemarks || '-'}</td>
+                    <td>{review.actionTaken ? review.actionTaken.charAt(0).toUpperCase() + review.actionTaken.slice(1) : '-'}</td>
+                    <td>{review.reviewerName || '-'}</td>
+                    <td>{review.submittedAt ? new Date(review.submittedAt).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-'}</td>
                     {/* <td>{review.reviewerName || 'N/A'}</td> */}
                   </tr>
                 ))

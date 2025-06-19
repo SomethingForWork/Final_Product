@@ -78,9 +78,9 @@ const UploadHod = () => {
                                     <tbody>
                                         {previewData.map((item, index) => (
                                             <tr key={index}>
-                                                <td>{item.Name || "N/A"}</td>
-                                                <td>{item.Email || "N/A"}</td>
-                                                <td>{item.Password || "N/A"}</td>
+                                                <td>{item.Name || "-"}</td>
+                                                <td>{item.Email || "-"}</td>
+                                                <td>{item.Password || "-"}</td>
                                             </tr>
                                         ))}
                                     </tbody>

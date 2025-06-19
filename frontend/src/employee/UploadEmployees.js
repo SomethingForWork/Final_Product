@@ -113,9 +113,9 @@ const UploadEmployees = () => {
                                     <tbody>
                                         {previewData.map((item, index) => (
                                             <tr key={index}>
-                                                <td>{item["Emp Name"] || "N/A"}</td>
-                                                <td>{item["Email ID"] || "N/A"}</td>
-                                                <td>{item["HOD"] || "N/A"}</td>
+                                                <td>{item["Emp Name"] || "-"}</td>
+                                                <td>{item["Email ID"] || "-"}</td>
+                                                <td>{item["HOD"] || "-"}</td>
                                             </tr>
                                         ))}
                                     </tbody>

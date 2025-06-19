@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 
 const SMTP_CONFIG = {
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: parseInt(process.env.SMTP_PORT) || 587,
+  host: process.env.SMTP_HOST || "mail.religare.com",
+  port: parseInt(process.env.SMTP_PORT) || 25,
   secure: process.env.SMTP_SECURE === "true",
   auth: {
     user: process.env.EMAIL_USER,

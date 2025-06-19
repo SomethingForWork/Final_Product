@@ -328,7 +328,7 @@ const AuditList = () => {
                       <td>
                         {audit.emp_id && typeof audit.emp_id === 'object' && audit.emp_id.name 
                           ? audit.emp_id.name
-                          : 'N/A'}
+                          : '-'}
                       </td>
                       {displayedRightsCategories.map(category => (
                         <td key={category}>{renderRightsCell(audit, category, applications)}</td>

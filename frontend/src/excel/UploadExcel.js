@@ -254,7 +254,7 @@ function UploadExcel() {
                                         {previewData.map((item, rowIndex) => (
                                             <tr key={rowIndex}> {/* Using rowIndex as key is okay for simple previews */}
                                                 {Object.keys(item).map(key => (
-                                                    <td key={key}>{item[key] || "N/A"}</td>
+                                                    <td key={key}>{item[key] || "-"}</td>
                                                 ))}
                                             </tr>
                                         ))}
@@ -285,12 +285,12 @@ function UploadExcel() {
                                         <tbody>
                                             {report.succesData.map((item) => (
                                                 <tr key={item._id}>
-                                                    <td>{item.emp_id?.name || "N/A"}</td>
-                                                    <td>{item.emp_id?.email || "N/A"}</td>
-                                                    <td>{item.application_id?.appName || "N/A"}</td>
-                                                    <td>{item.initialRights || "N/A"}</td>
-                                                    <td>{item.audit_date ? new Date(item.audit_date).toLocaleDateString() : 'N/A'}</td>
-                                                    <td>{item.hod || "N/A"}</td>
+                                                    <td>{item.emp_id?.name || "-"}</td>
+                                                    <td>{item.emp_id?.email || "-"}</td>
+                                                    <td>{item.application_id?.appName || "-"}</td>
+                                                    <td>{item.initialRights || "-"}</td>
+                                                    <td>{item.audit_date ? new Date(item.audit_date).toLocaleDateString() : '-'}</td>
+                                                    <td>{item.hod || "-"}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -313,8 +313,8 @@ function UploadExcel() {
                                         <tbody>
                                             {report.errors.map((item, index) => (
                                                 <tr key={index}>
-                                                    <td>{item.row || "N/A"}</td>
-                                                    <td>{item.Error || "N/A"}</td>
+                                                    <td>{item.row || "-"}</td>
+                                                    <td>{item.Error || "-"}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

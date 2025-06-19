@@ -239,7 +239,7 @@ function App() {
     <tr key={app._id}>
       <td>{app.appName}</td>
       {/* Display frequency name from populated object */}
-      <td>{app.frequency_id?.name || "N/A"}</td>
+      <td>{app.frequency_id?.name || "-"}</td>
       <td> <small className="text-muted">{app.last_audit_date ? new Date(app.last_audit_date).toLocaleDateString() : 'No review done'}</small></td>
 <td>{new Date(app.next_audit_date).toLocaleDateString()}</td>
 

@@ -9,7 +9,7 @@ const Navbar = () => {
     }
   return (
     <div className="navbar">
-      <h1>Dashboard</h1>
+      <h1>Entitlement Review</h1>
       <div className="user-info">
         <span>Welcome, {user.name}!</span>
       </div>

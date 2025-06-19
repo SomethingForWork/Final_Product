@@ -443,114 +443,128 @@ app.post("/login", async (req, res) => {
     try {
         console.log('Login attempt for:', email);
 
-        // Step 1: Try MongoDB authentication first
-        const user = await UserModel.findOne({ email: email });
-        let isAuthenticated = false;
-        let userData = user;
-        let ldapError = null;
-
+        // First check if user exists in MongoDB
+        let user = await UserModel.findOne({ email: email });
+        
         if (user) {
-            console.log('User found in MongoDB, checking password');
-            // Try MongoDB authentication
-            if (user.password === password) {
-                console.log('MongoDB authentication successful');
-                isAuthenticated = true;
-            }
-        }
-
-        // If MongoDB auth failed or user not found, try LDAP
-        if (!isAuthenticated) {
-            try {
-                console.log('Attempting LDAP authentication');
-                isAuthenticated = await verifyLDAPCredentials(email, password);
-                
-                if (isAuthenticated) {
-                    console.log('LDAP authentication successful');
+            // If user exists, try LDAP first if they are an LDAP user
+            if (user.authType === 'ldap') {
+                try {
+                    console.log('Attempting LDAP authentication for existing user');
+                    const isLDAPAuthenticated = await verifyLDAPCredentials(email, password);
                     
-                    // If user doesn't exist in MongoDB but LDAP auth succeeded,
-                    // create a new user in MongoDB
-                    if (!user) {
-                        console.log('Creating new user in MongoDB for LDAP user');
-                        const newUser = new UserModel({
-                            email: email,
-                            name: email.split('@')[0], // Use part before @ as name
-                            password: 'LDAP_AUTH', // Placeholder password
-                            role: 'user', // Default role
-                            status: true
+                    if (isLDAPAuthenticated) {
+                        console.log('LDAP authentication successful');
+                        const token = jwt.sign(
+                            { 
+                                userId: user._id,
+                                email: user.email,
+                                role: user.role
+                            },
+                            config.jwt.secret,
+                            { expiresIn: config.jwt.expiresIn }
+                        );
+                        return res.json({
+                            success: true,
+                            token,
+                            user: {
+                                id: user._id,
+                                name: user.name,
+                                email: user.email,
+                                role: user.role
+                            }
                         });
-                        userData = await newUser.save();
-                        console.log('New user created in MongoDB');
                     }
-                }
-            } catch (error) {
-                ldapError = error;
-                console.error('LDAP authentication error:', error);
-                
-                // Handle specific LDAP errors
-                if (error.message.includes('timeout')) {
-                    return res.status(503).json({
-                        success: false,
-                        message: "LDAP server is currently unreachable. Please try again later or contact support.",
-                        error: "LDAP_CONNECTION_TIMEOUT"
-                    });
-                } else if (error.code === 49) {
+                } catch (ldapError) {
+                    console.error('LDAP authentication failed:', ldapError);
                     return res.status(401).json({
                         success: false,
-                        message: "Invalid LDAP credentials",
-                        error: "LDAP_INVALID_CREDENTIALS"
+                        message: "LDAP authentication failed"
                     });
-                } else {
-                    return res.status(503).json({
-                        success: false,
-                        message: "LDAP authentication service is currently unavailable",
-                        error: "LDAP_SERVICE_ERROR"
+                }
+            } else {
+                // For non-LDAP users, check MongoDB password
+                if (user.password === password) {  // In production, use proper password hashing
+                    console.log('MongoDB authentication successful');
+                    const token = jwt.sign(
+                        { 
+                            userId: user._id,
+                            email: user.email,
+                            role: user.role
+                        },
+                        config.jwt.secret,
+                        { expiresIn: config.jwt.expiresIn }
+                    );
+                    return res.json({
+                        success: true,
+                        token,
+                        user: {
+                            id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role
+                        }
                     });
                 }
             }
         }
 
-        if (!isAuthenticated) {
-            console.log(`Login attempt failed: Authentication failed - ${email}`);
-            return res.status(401).json({
-                success: false,
-                message: "Invalid credentials. Please check your email and password.",
-                error: "INVALID_CREDENTIALS"
-            });
+        // If user doesn't exist in MongoDB or authentication failed, try LDAP
+        try {
+            console.log('Attempting LDAP authentication for new user');
+            const isLDAPAuthenticated = await verifyLDAPCredentials(email, password);
+            
+            if (isLDAPAuthenticated) {
+                console.log('LDAP authentication successful');
+                
+                // Create new user in MongoDB if LDAP auth succeeds
+                user = new UserModel({
+                    email: email,
+                    name: email.split('@')[0],
+                    password: null,
+                    role: 'user',
+                    status: true,
+                    authType: 'ldap'
+                });
+                await user.save();
+                console.log('New user created in MongoDB');
+
+                const token = jwt.sign(
+                    { 
+                        userId: user._id,
+                        email: user.email,
+                        role: user.role
+                    },
+                    config.jwt.secret,
+                    { expiresIn: config.jwt.expiresIn }
+                );
+
+                return res.json({
+                    success: true,
+                    token,
+                    user: {
+                        id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role
+                    }
+                });
+            }
+        } catch (ldapError) {
+            console.error('LDAP authentication failed:', ldapError);
         }
 
-        // Generate JWT token
-        const token = jwt.sign(
-            { 
-                userId: userData._id,
-                email: userData.email,
-                role: userData.role
-            },
-            config.jwt.secret,
-            { expiresIn: config.jwt.expiresIn }
-        );
-
-        // Log successful login
-        console.log(`User logged in successfully: ${email}`);
-
-        // Return success response
-        return res.json({
-            success: true,
-            message: "Login successful",
-            token: token,
-            user: {
-                _id: userData._id,
-                email: userData.email,
-                name: userData.name,
-                role: userData.role
-            }
+        // If all authentication attempts fail
+        return res.status(401).json({
+            success: false,
+            message: "Invalid email or password"
         });
 
     } catch (error) {
         console.error('Login error:', error);
         return res.status(500).json({
             success: false,
-            message: "Internal server error",
-            error: "INTERNAL_SERVER_ERROR"
+            message: "An error occurred during login"
         });
     }
 });
@@ -1459,26 +1473,29 @@ app.post('/sendReviewNotification', async (req, res) => {
     // Use the selected action text in the subject and body
     const actionText = selectedAction === 'revoke' ? 'Revoked' : 'Retained';
     const subject = `Review Action: ${actionText} by ${reviewerName} for ${employeeName}`;
-    const body = `Dear Application Admin,\n\nThis email is to notify you that ${reviewerName} has reviewed the rights for employee ${employeeName} and taken the action: ${actionText}.\n\nThe reviewed rights were:\n${rightsDetails}\n\nReviewer Remarks:\n${remark}\n\nPlease take necessary action in your application.\n\nRegards,\nER Admin `;
+    const html = `
+      <div style="font-family: Arial, sans-serif; padding: 20px;">
+        <h2>Review Action Notification</h2>
+        <p>Dear Application Admin,</p>
+        <p>This email is to notify you that <b>${reviewerName}</b> has reviewed the rights for employee <b>${employeeName}</b> and taken the action: <b>${actionText}</b>.</p>
+        <h3>Reviewed Rights:</h3>
+        <div>${rightsDetails}</div>
+        <h3>Reviewer Remarks:</h3>
+        <div>${remark}</div>
+        <br>
+        <p>Please take necessary action in your application.</p>
+        <p>Regards,<br>ER Admin</p>
+      </div>
+    `;
 
-    const mailOptions = {
-      from: 'divyanshsinghiscool@gmail.com', // Sender address
-      to: adminEmail, // Receiver address (Application Admin)
-      subject: subject, // Subject line
-      text: body, // Plain text body
-      // html: '<b>Hello world?</b>' // html body
-    };
-
-    // Send email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error sending email:', error);
-        res.status(500).json({ success: false, message: 'Failed to send email notification.' });
-      } else {
-        console.log('Email sent:', info.response);
-        res.json({ success: true, message: 'Review action recorded and email notification sent.' });
-      }
+    // Use the email service
+    await sendEmail({
+      to: adminEmail,
+      subject,
+      html
     });
+
+    res.json({ success: true, message: 'Review action recorded and email notification sent.' });
 
   } catch (error) {
     console.error('Error processing review notification:', error);
