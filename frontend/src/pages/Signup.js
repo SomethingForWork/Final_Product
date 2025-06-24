@@ -71,7 +71,7 @@ function Signup() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">
+                    <button type="submit" className="btn btn-primary w-100" style={{backgroundColor: "#167340"}}>
                         Register
                     </button>
                 </form>

@@ -94,7 +94,7 @@ const CreateAdmin = () => {
 
                 <button
                   type="submit"
-                  className="btn btn-primary w-100"
+                  className="btn btn-primary w-100" style={{backgroundColor: "#167340"}}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Creating...' : 'Create Admin'}

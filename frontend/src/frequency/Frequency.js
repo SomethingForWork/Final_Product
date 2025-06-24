@@ -125,7 +125,7 @@ const FrequencyIndex = () => {
        
           <h2>Frequencies</h2>
           <a href='/create_frequency'>
-            <button  className='btn btn-md btn-primary'>Create New Frequency</button>
+            <button  className='btn btn-md text-white' style={{backgroundColor: "#167340"}}>Create New Frequency</button>
           </a>
           {error && <p className="text-danger">{error}</p>}
          
@@ -150,7 +150,7 @@ const FrequencyIndex = () => {
                     <td className='d-none'>{frequency.status}</td>
                     <td>
                       <button 
-                        className='btn btn-sm btn-warning me-2' // me-2 for right margin
+                        className='btn btn-sm btn-warning me-2 text-white' style={{backgroundColor: "#167340"}} // me-2 for right margin
                         onClick={() => handleEditClick(frequency)}
                       >
                         Edit
@@ -226,7 +226,7 @@ const FrequencyIndex = () => {
                       </div>
                        <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={() => setIsEditModalOpen(false)}>Close</button>
-                        <button type="submit" className="btn btn-primary">Save changes</button>
+                        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}}>Save changes</button>
                       </div>
                     </form>
                   </div>

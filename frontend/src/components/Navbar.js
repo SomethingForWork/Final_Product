@@ -14,8 +14,12 @@ const Navbar = () => {
         <span>Welcome, {user.name}!</span>
       </div>
       <div className="user-info">
-        <a href='/logout'>
-          <span>Logout</span>
+        <a href='/logout' style={{textDecoration: "none"}}>
+          <span className='text-white'>
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' style={{background: "#167340", outline: "none"}}>
+            Logout
+            </button>
+            </span>
         </a>
       </div>
 

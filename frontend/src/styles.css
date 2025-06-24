@@ -15,7 +15,7 @@ body {
   }
   
   .navbar {
-    background-color: #333;
+    background-color: #349a5d;
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -30,7 +30,7 @@ body {
   
   .sidebar {
     width: 200px;
-    background-color: #f4f4f4;
+    background-color: #2EA44B;
     padding: 20px;
   }
   
@@ -45,11 +45,15 @@ body {
   
   .sidebar ul li a {
     text-decoration: none;
-    color: #333;
+    color: #FFF;
   }
   
   .sidebar ul li a:hover {
-    color: #007bff;
+    color: #FFF;
+    background-color: rgba(48, 52, 55, 0.75);
+    border-radius: 12px;
+    padding: 10px 20px;
+    transition: .2s ease-in-out;
   }
   
   .main-content {

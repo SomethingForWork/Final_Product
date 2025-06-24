@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
     // LDAP Configuration
     ldap: {
-        url: process.env.LDAP_URL || 'ldap://10.91.51.39:389',
+        url: process.env.LDAP_URL || 'ldap://DELRFLADC003P.religare.in:389',
         timeout: 10000
     },
     
@@ -15,6 +15,6 @@ module.exports = {
     
     // MongoDB Configuration
     mongodb: {
-        uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/restrict_app'
+        uri: process.env.MONGODB_URI || 'mongodb://restrict_user:random@localhost:27017/restrict_app'
     }
 }; 

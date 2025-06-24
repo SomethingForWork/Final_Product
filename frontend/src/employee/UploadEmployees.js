@@ -85,7 +85,7 @@ const UploadEmployees = () => {
                         <div className="mb-3">
                             <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} className="form-control" />
                         </div>
-                        <button onClick={handleUpload} className="btn btn-primary mb-3">Upload</button>
+                        <button onClick={handleUpload} className="btn btn-primary mb-3" style={{backgroundColor: "#167340"}}>Upload</button>
                         {message && <p className="alert alert-info">{message}</p>}
 
                         {previewData.length > 0 && (

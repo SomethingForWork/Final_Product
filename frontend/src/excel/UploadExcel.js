@@ -234,7 +234,7 @@ function UploadExcel() {
                             <div className="table-responsive mt-4">
                                                                 <button 
                                     onClick={handleUploadClick} 
-                                    className="btn btn-primary mt-3" 
+                                    className="btn btn-primary mt-3" style={{backgroundColor: "#167340"}} 
                                     disabled={isLoading || previewData.length === 0}
                                 >
                                     {isLoading ? 'Uploading...' : 'Upload to Database'}

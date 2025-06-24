@@ -327,7 +327,7 @@ const CreateAuditForm = () => {
               )}
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={isLoading}>
+            <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}} disabled={isLoading}>
               {isLoading ? 'Creating...' : 'Create Audit'}
             </button>
           </form>

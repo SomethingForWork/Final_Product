@@ -111,7 +111,7 @@ const EmployeeForm = () => {
             </div>
 
 
-            <button type="submit" className="btn btn-primary">Add Employee</button>
+            <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}}>Add Employee</button>
           </form>
         </div>
       </div>

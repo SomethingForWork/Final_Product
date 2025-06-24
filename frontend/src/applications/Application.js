@@ -214,7 +214,7 @@ function App() {
         <div className="container mt-5">
           <h2>Application List</h2>
           <a href='/applicationcreate'>
-            <button  className='btn btn-md btn-primary'>Create New Application</button>
+            <button  className='btn btn-md text-white' style={{backgroundColor: "#167340"}}>Create New Application</button>
           </a>
           <br/>
           <br/>
@@ -277,7 +277,7 @@ function App() {
         )}
       </td>
       <td>
-        <button className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleEditClick(app)}>
+        <button className="btn btn-sm me-2 mb-2 text-white" style={{backgroundColor: "#167340"}} onClick={() => handleEditClick(app)}>
           Modify
         </button>
         {/* <button className="btn btn-danger btn-sm" onClick={() => handleDelete(app._id)}>
@@ -429,7 +429,7 @@ function App() {
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                  <button type="submit" className="btn btn-primary">Save Changes</button>
+                  <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}}>Save Changes</button>
                 </div>
               </form>
             </div>

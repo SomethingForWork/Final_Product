@@ -106,7 +106,7 @@ const AddUser = () => {
               />
             </div> */}
 
-            <button type="submit" className="btn btn-primary">Add HOD/Reviewer</button>
+            <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}}>Add HOD/Reviewer</button>
           </form>
         </div>
       </div>

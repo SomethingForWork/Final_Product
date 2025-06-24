@@ -3,7 +3,13 @@ const CompletedReview = require('./models/CompletedReview');
 const Employee = require('./models/Employee');
 
 async function backfillEmployeeId() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/restrict_app');
+  await mongoose.connect('mongodb://127.0.0.1:27017/restrict_app', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    user: "restrict_user",
+    pass: "random",
+    authSource: 'restrict_app'
+  });
 
   const reviews = await CompletedReview.find({ employeeId: { $exists: false } });
   for (const review of reviews) {

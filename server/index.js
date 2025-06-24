@@ -67,7 +67,13 @@ app.use(cors({
 app.use(express.json({ limit: '50mb' }));
 
 // MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/restrict_app")
+mongoose.connect("mongodb://127.0.0.1:27017/restrict_app", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  user: "restrict_user",
+  pass: "random",
+  authSource: 'restrict_app'
+})
 .then(() => {
   console.log('Connected to MongoDB');
   // Initialize change logging
@@ -1554,7 +1560,7 @@ app.get("/appLogs", async (req, res) => {
         console.error('Error fetching app logs:', error);
         res.status(500).json({ message: "Error fetching application logs" });
     }
-});
+}); 
 
 app.get('/completedReviews', checkAuth, async (req, res) => {
   try {

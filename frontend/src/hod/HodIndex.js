@@ -72,7 +72,7 @@ const HodIndex = () => {
         <div className="container mt-5">
           <h2>HOD/Reviewer List</h2>
           <a href='/hodcreate'>
-            <button  className='btn btn-md btn-primary'>Create New HOD/Reviewer</button>
+            <button  className='btn btn-md text-white' style={{backgroundColor: "#167340"}}>Create New HOD/Reviewer</button>
           </a>
           <br/>
           <br/>
@@ -108,7 +108,7 @@ const HodIndex = () => {
                           : "No Employees Assigned"}
                     </td>
                     <td>
-                      <button className="btn btn-primary btn-sm" onClick={() => handleModify(hod)}>
+                      <button className="btn btn-sm text-white" style={{ backgroundColor: "#167340"}} onClick={() => handleModify(hod)}>
                         Modify
                       </button>
                     </td>
@@ -153,7 +153,7 @@ const HodIndex = () => {
 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                    <button type="submit" className="btn btn-primary">Save changes</button>
+                    <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}}>Save changes</button>
                   </div>
                 </form>
               </div>

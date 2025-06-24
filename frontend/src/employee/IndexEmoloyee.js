@@ -97,7 +97,7 @@ const EmployeeIndex = () => {
         <div className="container mt-5">
           <h2>Employee / Reviewer List</h2>
           <a href='/employeescreate'>
-            <button className='btn btn-md btn-primary'>Create New Employee</button>
+            <button className='btn btn-md btn-primary text-white' style={{backgroundColor: "#167340"}}>Create New Employee</button>
           </a>
           <br />
           <br />
@@ -127,7 +127,7 @@ const EmployeeIndex = () => {
                     <td>{employee.status === false ? 'Disabled' : 'Enabled'}</td>
                     <td>
                       <button 
-                        className='btn btn-sm btn-info me-2'
+                        className='btn btn-sm me-2 mb-2 text-white' style={{backgroundColor: "#167340"}}
                         onClick={() => handleEditClick(employee)}
                       >
                         Modify
@@ -197,7 +197,7 @@ const EmployeeIndex = () => {
                     <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
                       Close
                     </button>
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}}>
                       Save Changes
                     </button>
                   </div>

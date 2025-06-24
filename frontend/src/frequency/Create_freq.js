@@ -101,7 +101,7 @@ const FrequencyForm = () => {
 
             <button 
               type="submit" 
-              className="btn btn-primary"
+              className="btn btn-primary" style={{backgroundColor: "#167340"}}
               disabled={isLoading}
             >
               {isLoading ? 'Creating...' : 'Create Frequency'}

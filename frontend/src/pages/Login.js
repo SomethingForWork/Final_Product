@@ -34,7 +34,7 @@ function Login() {
     
 
     return (
-        <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
+        <div className="d-flex justify-content-center align-items-center vh-100" style={{backgroundColor: "#EEE"}}>
             <div className="bg-white p-3 rounded w-25">
                 <h2>Login</h2>
                 {error && <p className="text-danger">{error}</p>}
@@ -65,12 +65,12 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">
+                    <button type="submit" className="btn w-100 text-white" style={{background: "#167340"}}>
                         Login
                     </button>
                 </form>
-                <p>Don't have an account?</p>
-                <Link to="/signup" className="btn btn-default border w-100 bg-light">
+                {/* <p className="text-center mt-2">OR ?</p> */}
+                <Link to="/signup" className="btn btn-default border mt-2 w-100 bg-light">
                     Signup
                 </Link>
             </div>

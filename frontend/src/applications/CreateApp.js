@@ -208,7 +208,7 @@ const handleFrequencyChange = async (e) => {
               ></textarea>
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={isLoading}>
+            <button type="submit" className="btn btn-primary" style={{backgroundColor: "#167340"}} disabled={isLoading}>
               {isLoading ? 'Creating...' : 'Add Application'}
             </button>
           </form>

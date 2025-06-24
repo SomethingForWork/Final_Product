@@ -2,7 +2,7 @@ const ldap = require('ldapjs');
 const config = require('../config/config');
 
 // LDAP Configuration - Hardcoded values
-const LDAP_URL = 'ldap://religare.in:389';  // Replace with your actual LDAP server
+const LDAP_URL = 'ldap://DELRFLADC003P.religare.in:389';  // Replace with your actual LDAP server
 // ldap://religare.in -> Try Using This As LDAP URL
 const LDAP_TIMEOUT = 10000; // 10 seconds timeout - Lower It 
 
