@@ -16,7 +16,7 @@ const EmployeeIndex = () => {
   // Fetch employees data from the backend
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:3002/employee');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/employee`);
       setEmployees(response.data);
     } catch (err) {
       setError('Error fetching employee data.');
@@ -27,7 +27,7 @@ const EmployeeIndex = () => {
   const updateStatus = async (id, status) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:3002/employee/${id}`, { status }, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/employee/${id}`, { status }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -70,7 +70,7 @@ const EmployeeIndex = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:3002/employee/${editingEmployee._id}`, editForm, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/employee/${editingEmployee._id}`, editForm, {
         headers: {
           Authorization: `Bearer ${token}`
         }

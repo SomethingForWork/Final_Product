@@ -26,7 +26,7 @@ const AddUser = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3002/register', newUser, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, newUser, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

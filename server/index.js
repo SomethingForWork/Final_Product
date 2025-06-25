@@ -79,8 +79,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/restrict_app", {
   // Initialize change logging
   setupChangeLogging();
   // Start the server only after successful database connection
-  app.listen(3002, () => {
-    console.log("Server is running on port 3002");
+  app.listen(3002, '0.0.0.0', () => {
+    console.log("Server is running on port http://0.0.0.0:3002");
   });
 })
 .catch(err => {
