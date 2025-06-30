@@ -1,4 +1,4 @@
-# 🚀 Complete Deployment Guide: Node.js + React + MongoDB + Nginx + PM2
+# Complete Deployment Guide: Node.js + React + MongoDB + Nginx + PM2
 
 ## **Prerequisites**
 - Ubuntu/Debian server with root access
